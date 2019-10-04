@@ -1,0 +1,46 @@
+{
+  "name": "html-processor",
+  "version": "0.2.0",
+  "private": false,
+  "description": "processes html to complete working hours information",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucianourgal/working-hours-html-processing.git"
+  },
+  "keywords": [
+    "html",
+    "text",
+    "processing",
+    "working",
+    "hours"
+  ],
+  "author": "Luciano Urgal Pando",
+  "license": "MIT",
+  "homepage": "https://github.com/lucianourgal/working-hours-html-processing#readme",
+  "dependencies": {
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-scripts": "3.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
