@@ -1,21 +1,31 @@
+import { copyHtmlButtonName } from './App'
 
 export let totalMinutes;
+export let textProcessingReport;
 let activeDays;
 let dailyHours;
 let twoTurnsDays;
+let prettyTotalHours;
+let minimumMinutes;
+let problems;
 
 const tdSplitString = '<p class="Tabela_Texto_Alinhado_Justificado">'
 
 export const completeHtml = (str) => {
 
+    textProcessingReport = '';
+    problems = '';
     totalMinutes = 0;
     activeDays = 0;
     //dailyHours = 0;
     twoTurnsDays = 0;
 
-    if(!str) return 'Nenhuma string foi fornecida'
+    if(!str) return ''
     let trSplit = str.split('<tr>')
-    if(trSplit.length < 1) return 'Não há <tr> no texto.'
+    if(trSplit.length < 1) {
+        textProcessingReport = 'Não há <Tr> suficientes no HTML';
+        return ''
+    }
     const lastTrIndex = trSplit.length-1;
     
     trSplit = trSplit.map((tr,i) =>{
@@ -29,25 +39,42 @@ export const completeHtml = (str) => {
         }
     })
 
-    return trSplit.join('<tr>');
+    textProcessingReport = 'Processamento de texto completo!'+
+    '\nVerifique o resultado abaixo antes de clicar no botão <<'+copyHtmlButtonName+'>> e copiar o código.'+
+    '\n\nDias com registros e completados: '+ activeDays +
+    '\nDias de dois turnos ou mais: ' + twoTurnsDays +
+    '\nSua carga horária é de ' + dailyHours + 'h por dia, ou ' + (dailyHours*5) + 'h semanais.' +
+    '\nTrabalhou ' + minutesToHoursMinutes(totalMinutes) + ' de ' + 
+    minutesToHoursMinutes(minimumMinutes) + ' esperadas, deixando um saldo de ' + prettyTotalHours +
+    '\n' + 
+    (problems ? 'Problemas encontrados: ' + problems : '')
+
+    return problems ? '' : trSplit.join('<tr>');
 }
 
 const completeLastTr = (str) => {
 
     if(!str) {
         console.log('Ultima tr nula')
+        problems += 'Ultima tr nula, '
         return 'TR nula'
     }
     let tdSplit = str.split(tdSplitString)
     const lastIndex = tdSplit.length-2;
+    if(lastIndex < 3) {
+        const prb = 'ultima <tr> tem apenas '+(lastIndex+2)+' <td>s: espera-se 5,'
+        problems += prb;
+        return prb;
+    }
+
     if(twoTurnsDays > (activeDays/2)) {
         dailyHours = 8;
     } else {
         dailyHours = 6;
     }
-    const minimumMinutes = (activeDays * dailyHours)*60;
+    minimumMinutes = (activeDays * dailyHours)*60;
 
-    const prettyTotalHours = minutesToHoursMinutes(totalMinutes - minimumMinutes)
+    prettyTotalHours = minutesToHoursMinutes(totalMinutes - minimumMinutes)
     console.log('Tempo restante do mês: ' + prettyTotalHours + '; tdSplit.length = ' + tdSplit.length)
 
     if(totalMinutes)
@@ -60,10 +87,16 @@ const completeTr = (str,i) => {
     
     if(!str) {
         console.log('Tr '+i + ' nula')
+        problems += '<tr> '+ i + ' nula, '
         return 'Tr nula'
     }
     let tdSplit = str.split(tdSplitString)
     const lastIndex = tdSplit.length-1;
+    if(lastIndex < 4) {
+        const prb = '<tr> '+i+' tem apenas '+(lastIndex+1)+' <td>s: espera-se 5,'
+        problems += prb;
+        return prb;
+    }
     let minutesSum = 0;
 
     // get 2-3°, 5°-6°, 8-9° collumns (if exists)  <td><p>
@@ -84,7 +117,6 @@ const completeTr = (str,i) => {
         }
     }
     if(isTwoTurns) twoTurnsDays++;
-    
     
     // post result to last collumn
     if(minutesSum && minutesSum > 0) {

@@ -18,6 +18,7 @@
   "license": "MIT",
   "homepage": "https://github.com/lucianourgal/working-hours-html-processing#readme",
   "dependencies": {
+    "copy-to-clipboard": "^3.2.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0"
