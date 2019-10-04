@@ -1,5 +1,6 @@
 import React from 'react';
 import { completeHtml } from './textProcessor';
+import { exampleText } from './example'
 
 const taStyle = {
   width: '100%'
@@ -7,7 +8,7 @@ const taStyle = {
 
 const App = () =>  {
 
-    const [html, setHtml] = React.useState("HTML da tabela aqui");
+    const [html, setHtml] = React.useState(exampleText);
     const processText = () => {
       setHtml(completeHtml(html));
     }
