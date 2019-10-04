@@ -2,10 +2,17 @@ import React from 'react';
 import { completeHtml, textProcessingReport } from './textProcessor';
 import { exampleText } from './example'
 import copy from 'copy-to-clipboard';
+import './App.css'
+
 
 const taStyle = {
   width: '100%'
 }
+
+const ButtonStyle = {
+
+}
+
 
 export const copyHtmlButtonName = 'Copiar HTML completado';
 
@@ -39,22 +46,28 @@ const App = () =>  {
       return <div className="App">
       <header className="App-header" style={{textAlign: 'center'}}>
         <h2>
-          Ferramenta para calcular quantidades de horas no HTML da ficha ponto do SEI IFPR
+          Ferramenta para calcular quantidades de horas no HTML da <b>folha ponto</b> do SEI IFPR
         </h2>
       </header>
-      <div style={{textAlign: 'center'}}>
-        <p>Insira o código HTML da tabela abaixo</p>
-        <textarea rows="15" cols="150" value={html} onChange={textAreaOnChange} style={taStyle}/>
-        <button onClick={setDefaultHtml}>Usar código exemplo</button>
-        <button onClick={processText}>{completeCodeButtonName}</button>
-        <button onClick={copyText}>{copyHtmlButtonName}</button>
-        <h4>Relatório</h4>
-        <textarea disabled rows="8" cols="100" value={report} onChange={textAreaOnChange} style={taStyle}/>
-        { readyHtml ?  <h4>Resultado atual</h4> : null }
-        <div dangerouslySetInnerHTML={{ __html: readyHtml }}  />
+      <div style={{textAlign: 'center'}} id="mainDiv">
+        <section>
+          <p>Insira o código HTML da tabela abaixo</p>
+          <textarea rows="12" cols="150" value={html} onChange={textAreaOnChange} className='mainTextArea'/>
+        </section>
+        <section>
+            <button onClick={setDefaultHtml}>Usar código exemplo</button>
+            <button onClick={processText}>{completeCodeButtonName}</button>
+            <button onClick={copyText}>{copyHtmlButtonName}</button>
+        </section>
+        <section>
+          <h4>Relatório</h4>
+          <textarea disabled rows="8" cols="100" value={report} onChange={textAreaOnChange} className='reportArea'/>
+          { readyHtml ?  <h4>Resultado atual</h4> : null }
+          <div dangerouslySetInnerHTML={{ __html: readyHtml }}  />
+        </section>
       </div>
     
-      <footer style={{textAlign: 'right', verticalAlign: 'bottom'}}>Desenvolvido por Luciano Urgal Pando utilizando React.js</footer>
+      <footer><span>Desenvolvido por Luciano Urgal Pando utilizando React.js</span></footer>
     </div>
 
 }

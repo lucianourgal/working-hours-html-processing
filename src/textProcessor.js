@@ -40,7 +40,7 @@ export const completeHtml = (str) => {
     })
 
     textProcessingReport = 'Processamento de texto completo!'+
-    '\nVerifique o resultado abaixo antes de clicar no botão <<'+copyHtmlButtonName+'>> e copiar o código.'+
+    ' Verifique o resultado abaixo antes de clicar no botão <<'+copyHtmlButtonName+'>> e copiar o código.'+
     '\n\nDias com registros e completados: '+ activeDays +
     '\nDias de dois turnos ou mais: ' + twoTurnsDays +
     '\nSua carga horária é de ' + dailyHours + 'h por dia, ou ' + (dailyHours*5) + 'h semanais.' +
