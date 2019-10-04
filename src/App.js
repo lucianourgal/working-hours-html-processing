@@ -1,20 +1,32 @@
 import React from 'react';
+import { completeHtml } from './textProcessor';
 
-const App = () =>  <div className="App">
+const taStyle = {
+  width: '100%'
+}
+
+const App = () =>  {
+
+    const [html, setHtml] = React.useState("HTML da tabela aqui");
+    const processText = () => {
+      setHtml(completeHtml(html));
+    }
+
+      return <div className="App">
       <header className="App-header">
         <h2>
           Ferramenta para calcular quantidades de horas no HTML da ficha ponto do SEI IFPR
         </h2>
         <p>Desenvolvido por Luciano Urgal Pando</p>
       </header>
-      <body>
-        <textarea rows="10" cols="150" id='ta'/>
+      <div style={{textAlign: 'center'}}>
+        <textarea rows="25" cols="150" value={html} onChange={(event) => setHtml(event.target.value)} style={taStyle}/>
         <button onClick={processText}>Completar folha ponto</button>
-      </body>
+      </div>
     </div>
 
-const processText = () => {
-
 }
+
+
 
 export default App;

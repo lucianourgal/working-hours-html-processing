@@ -1,6 +1,6 @@
 {
-  "name": "html-processor",
-  "version": "0.2.0",
+  "name": "html-working-hours-processor",
+  "version": "1.0.0",
   "private": false,
   "description": "processes html to complete working hours information",
   "repository": {
