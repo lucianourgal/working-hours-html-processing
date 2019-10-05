@@ -7,6 +7,9 @@ let dailyHours;
 let twoTurnsDays;
 let prettyTotalHours;
 let minimumMinutes;
+let positiveDay;
+let negativeDay;
+let minutesInEachDay;
 let problems;
 
 const tdSplitString = '<p class="Tabela_Texto_Alinhado_Justificado">'
@@ -17,8 +20,11 @@ export const completeHtml = (str) => {
     problems = '';
     totalMinutes = 0;
     activeDays = 0;
+    positiveDay = 0;
+    negativeDay = 0;
     //dailyHours = 0;
     twoTurnsDays = 0;
+    minutesInEachDay = []
 
     if(!str) {
         textProcessingReport = 'Não há nenhum texto para ser processado.\n' +
@@ -49,6 +55,14 @@ export const completeHtml = (str) => {
         return ''
     }
 
+    minutesInEachDay.forEach(minutes => {
+        if(minutes < dailyHours*60) {
+            negativeDay++;
+        } else if(minutes > dailyHours*60) {
+            positiveDay++;
+        }
+    })
+
     textProcessingReport = 'Processamento de texto completo!'+
     ' Verifique o resultado abaixo antes de clicar no botão <<'+copyHtmlButtonName+'>> e copiar o código.'+
     '\n\nDias com registros e completados: '+ activeDays +
@@ -56,7 +70,7 @@ export const completeHtml = (str) => {
     '\nSua carga horária é de ' + dailyHours + 'h por dia, ou ' + (dailyHours*5) + 'h semanais.' +
     '\nTrabalhou ' + minutesToHoursMinutes(totalMinutes) + ' de ' + 
     minutesToHoursMinutes(minimumMinutes) + ' esperadas, deixando um saldo de ' + prettyTotalHours +
-    '.\n' + 
+    '.\nFez minutos a mais em ' + positiveDay + ' dias, e a menos em ' + negativeDay + ' dias.\n' +
     (problems ? 'Problemas encontrados: ' + problems : '')
 
     return problems ? '' : trSplit.join('<tr>');
@@ -131,6 +145,7 @@ const completeTr = (str,i) => {
     // post result to last collumn
     if(minutesSum && minutesSum > 0) {
         activeDays++;
+        minutesInEachDay.push(minutesSum);
         totalMinutes += minutesSum;
         console.log('Linha '+ i +  ' tem ' + minutesSum + ' minutos.')
         tdSplit[lastIndex] = minutesToHoursMinutes(minutesSum) + '</' + tdSplit[lastIndex].split('</')[1];
