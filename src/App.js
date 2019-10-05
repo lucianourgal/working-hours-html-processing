@@ -45,7 +45,7 @@ const App = () =>  {
       </header>
       <div style={{textAlign: 'center'}} id="mainDiv">
         <section>
-          <p>Insira o código HTML da tabela de registro de frequência abaixo</p>
+          <p>Insira o código HTML da tabela de registro de frequência abaixo <a href='https://docs.google.com/document/d/1x0Sp4mlzEPA3NlKu3XP15NljrMgiLcZA8vqhtlXgHTQ/edit?usp=sharing' target="_blank" rel="noopener">(Instruções detalhadas)</a></p>
           <textarea rows="12" cols="150" value={html} onChange={textAreaOnChange} className='mainTextArea'/>
         </section>
         <section>
