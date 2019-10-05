@@ -1,4 +1,4 @@
-import { copyHtmlButtonName } from './App'
+import { copyHtmlButtonName, useExampleButtonName } from './App'
 
 export let totalMinutes;
 export let textProcessingReport;
@@ -20,9 +20,14 @@ export const completeHtml = (str) => {
     //dailyHours = 0;
     twoTurnsDays = 0;
 
-    if(!str) return ''
+    if(!str) {
+        textProcessingReport = 'Não há nenhum texto para ser processado.\n' +
+            'Cole seu HTML de folha ponto, ou experimente usando o botão <<'+useExampleButtonName+'>>';
+        return ''
+    }
+    
     let trSplit = str.split('<tr>')
-    if(trSplit.length < 1) {
+    if(trSplit.length < 20) {
         textProcessingReport = 'Não há <Tr> suficientes no HTML';
         return ''
     }
@@ -39,6 +44,11 @@ export const completeHtml = (str) => {
         }
     })
 
+    if(activeDays<1) {
+        textProcessingReport = 'Não há registros de dias ativos. \n' + textProcessingReport
+        return ''
+    }
+
     textProcessingReport = 'Processamento de texto completo!'+
     ' Verifique o resultado abaixo antes de clicar no botão <<'+copyHtmlButtonName+'>> e copiar o código.'+
     '\n\nDias com registros e completados: '+ activeDays +
@@ -46,7 +56,7 @@ export const completeHtml = (str) => {
     '\nSua carga horária é de ' + dailyHours + 'h por dia, ou ' + (dailyHours*5) + 'h semanais.' +
     '\nTrabalhou ' + minutesToHoursMinutes(totalMinutes) + ' de ' + 
     minutesToHoursMinutes(minimumMinutes) + ' esperadas, deixando um saldo de ' + prettyTotalHours +
-    '\n' + 
+    '.\n' + 
     (problems ? 'Problemas encontrados: ' + problems : '')
 
     return problems ? '' : trSplit.join('<tr>');

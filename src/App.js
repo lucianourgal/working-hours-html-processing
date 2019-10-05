@@ -4,17 +4,8 @@ import { exampleText } from './example'
 import copy from 'copy-to-clipboard';
 import './App.css'
 
-
-const taStyle = {
-  width: '100%'
-}
-
-const ButtonStyle = {
-
-}
-
-
 export const copyHtmlButtonName = 'Copiar HTML completado';
+export const useExampleButtonName = 'Inserir HTML exemplo'
 
 const App = () =>  {
 
@@ -38,26 +29,29 @@ const App = () =>  {
       'Experimente clicar no botao <<'+ completeCodeButtonName + '>> para ver o resultado.')
     }
     const copyText = () => {
-      copy(readyHtml)
-      setReport('Código HTML copiado para a área de transferência!\n'+
-      'Agora é só colar no campo correspondente do SEI.')
+      if(readyHtml) { 
+        copy(readyHtml)
+        setReport('Código HTML copiado para a área de transferência!\n'+
+        'Agora basta colar o código da tabela na área correspondente do SEI.')
+      } else {
+        setReport('Não há código HTML pronto para ser copiado.\n'+
+        'Insira código HTML para processar, em seguida clique no botão <<'+completeCodeButtonName+'>>.')
+      }
     }
     
       return <div className="App">
-      <header className="App-header" style={{textAlign: 'center'}}>
-        <h2>
-          Ferramenta para calcular quantidades de horas no HTML da <b>folha ponto</b> do SEI IFPR
-        </h2>
+      <header>
+        <h2> Ferramenta para calcular quantidades de horas no HTML da Folha Ponto do SEI IFPR </h2>
       </header>
       <div style={{textAlign: 'center'}} id="mainDiv">
         <section>
-          <p>Insira o código HTML da tabela abaixo</p>
+          <p>Insira o código HTML da tabela de registro de frequência abaixo</p>
           <textarea rows="12" cols="150" value={html} onChange={textAreaOnChange} className='mainTextArea'/>
         </section>
         <section>
-            <button onClick={setDefaultHtml}>Usar código exemplo</button>
+            <button onClick={setDefaultHtml}>{useExampleButtonName}</button>
             <button onClick={processText}>{completeCodeButtonName}</button>
-            <button onClick={copyText}>{copyHtmlButtonName}</button>
+            <button enabled={!!readyHtml} onClick={copyText}>{copyHtmlButtonName}</button>
         </section>
         <section>
           <h4>Relatório</h4>
@@ -67,7 +61,8 @@ const App = () =>  {
         </section>
       </div>
     
-      <footer><span>Desenvolvido por Luciano Urgal Pando utilizando React.js</span></footer>
+      <footer><span>Desenvolvido por Luciano Urgal Pando </span></footer>
+      { /* <span>    Doações de BTC aceitas em bc1qzwlp2yzl783pskg9vrueuwhda7lrfmg3gc6enl</span> */}
     </div>
 
 }
