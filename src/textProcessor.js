@@ -31,6 +31,11 @@ export const completeHtml = (str) => {
             'Cole seu HTML de folha ponto, ou experimente usando o botão <<'+useExampleButtonName+'>>';
         return ''
     }
+
+    if((str.toLowerCase().replace(' ','')).includes('script')) {
+        textProcessingReport = 'Scripts não são permitidos.'
+        return ''
+    }
     
     let trSplit = str.split('<tr>')
     if(trSplit.length < 20) {
