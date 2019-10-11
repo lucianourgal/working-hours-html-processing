@@ -13,8 +13,10 @@ let minutesInEachDay;
 let problems;
 
 const tdSplitString = '<p class="Tabela_Texto_Alinhado_Justificado">'
+const completionComment = '<!-- Essa folha ponto teve seus minutos calculados utilizando  a' +
+' ferramenta disponível em https://working-hours-html-processing.herokuapp.com -->\n'
 
-export const completeHtml = (str) => {
+export const completeHtml = (str, tolerance) => {
 
     textProcessingReport = '';
     problems = '';
@@ -47,7 +49,7 @@ export const completeHtml = (str) => {
     trSplit = trSplit.map((tr,i) =>{
         // get third <tr> and beyond
         if(i === lastTrIndex) {
-            return completeLastTr(tr)
+           return completeLastTr(tr)
         } else if(i >= 2) {
             return completeTr(tr,i);
         } else {
@@ -60,25 +62,41 @@ export const completeHtml = (str) => {
         return ''
     }
 
+    const dailyMinutes = dailyHours*60
+
     minutesInEachDay.forEach(minutes => {
-        if(minutes < dailyHours*60) {
+        if(minutes < dailyMinutes) {
             negativeDay++;
-        } else if(minutes > dailyHours*60) {
+            if( (dailyMinutes - minutes) < tolerance ) { // meets tolerance
+                totalMinutes += dailyMinutes;
+            } else { // exceeds tolerance
+                totalMinutes += minutes;
+            }
+        } else if(minutes > dailyMinutes) {
             positiveDay++;
+            if( (minutes - dailyMinutes) < tolerance ) { // meets tolerance
+                totalMinutes += dailyMinutes;
+            } else { // exceeds tolerance
+                totalMinutes += minutes;
+            }
+        } else {
+            totalMinutes += minutes;
         }
     })
+
+    trSplit[lastTrIndex] = completeLastTr(trSplit[lastTrIndex]);
 
     textProcessingReport = 'Processamento de texto completo!'+
     ' Verifique o resultado abaixo antes de clicar no botão <<'+copyHtmlButtonName+'>> e copiar o código.'+
     '\n\nDias com registros e completados: '+ activeDays +
     '\nDias de dois turnos ou mais: ' + twoTurnsDays +
     '\nSua carga horária é de ' + dailyHours + 'h por dia, ou ' + (dailyHours*5) + 'h semanais.' +
-    '\nTrabalhou ' + minutesToHoursMinutes(totalMinutes) + ' de ' + 
+    '\nContabilizou ' + minutesToHoursMinutes(totalMinutes) + ' de ' + 
     minutesToHoursMinutes(minimumMinutes) + ' esperadas, deixando um saldo de ' + prettyTotalHours +
     '.\nFez minutos a mais em ' + positiveDay + ' dias, e a menos em ' + negativeDay + ' dias.\n' +
     (problems ? 'Problemas encontrados: ' + problems : '')
 
-    return problems ? '' : trSplit.join('<tr>');
+    return problems ? '' : completionComment + trSplit.join('<tr>');
 }
 
 const completeLastTr = (str) => {
@@ -151,7 +169,7 @@ const completeTr = (str,i) => {
     if(minutesSum && minutesSum > 0) {
         activeDays++;
         minutesInEachDay.push(minutesSum);
-        totalMinutes += minutesSum;
+        //totalMinutes += minutesSum;
         console.log('Linha '+ i +  ' tem ' + minutesSum + ' minutos.')
         tdSplit[lastIndex] = minutesToHoursMinutes(minutesSum) + '</' + tdSplit[lastIndex].split('</')[1];
     }

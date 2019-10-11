@@ -13,9 +13,10 @@ const App = () =>  {
     const [html, setHtml] = React.useState('');
     const [readyHtml, setReadyHtml] = React.useState('');
     const [report, setReport] = React.useState('')
+    const [tolerance, setTolerance] = React.useState(15);
 
     const processText = () => {
-      const ready = completeHtml(html);
+      const ready = completeHtml(html,tolerance);
       setHtml(ready);
       setReadyHtml(ready);
       setReport(textProcessingReport);
@@ -49,6 +50,10 @@ const App = () =>  {
           <textarea rows="12" cols="150" value={html} onChange={textAreaOnChange} className='mainTextArea'/>
         </section>
         <section>
+            <div>
+              <span>Tolerância em minutos: </span>
+              <input type='number' value={tolerance} onChange={(e) => setTolerance(e.target.value)}/>
+            </div>
             <button onClick={setDefaultHtml}>{useExampleButtonName}</button>
             <button onClick={processText}>{completeCodeButtonName}</button>
             <button enabled={!!readyHtml} onClick={copyText}>{copyHtmlButtonName}</button>
