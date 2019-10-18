@@ -10,13 +10,14 @@ export const useExampleButtonName = 'Inserir HTML exemplo'
 const App = () =>  {
 
     const completeCodeButtonName = 'Completar Folha Ponto'
+    const [lastMonth, setLastMonth] = React.useState(false);
     const [html, setHtml] = React.useState('');
     const [readyHtml, setReadyHtml] = React.useState('');
     const [report, setReport] = React.useState('')
     const [tolerance, setTolerance] = React.useState(15);
 
     const processText = () => {
-      const ready = completeHtml(html,tolerance);
+      const ready = completeHtml(html,tolerance, lastMonth);
       setHtml(ready);
       setReadyHtml(ready);
       setReport(textProcessingReport);
@@ -53,6 +54,8 @@ const App = () =>  {
             <div>
               <span>Tolerância em minutos: </span>
               <input type='number' value={tolerance} onChange={(e) => setTolerance(e.target.value)}/>
+              <span style={{marginLeft: '15px'}}>Calcular para mês passado: </span>
+              <input type='checkbox' value={lastMonth} onChange={() => setLastMonth(!lastMonth)}/>
             </div>
             <button onClick={setDefaultHtml}>{useExampleButtonName}</button>
             <button onClick={processText}>{completeCodeButtonName}</button>

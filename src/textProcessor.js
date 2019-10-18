@@ -16,7 +16,7 @@ const tdSplitString = '<p class="Tabela_Texto_Alinhado_Justificado">'
 const completionComment = '<!-- Essa folha ponto teve seus minutos calculados utilizando  a' +
 ' ferramenta disponível em https://working-hours-html-processing.herokuapp.com -->\n'
 
-export const completeHtml = (str, tolerance) => {
+export const completeHtml = (str, tolerance, isLastMonth) => {
 
     textProcessingReport = '';
     problems = '';
@@ -51,7 +51,7 @@ export const completeHtml = (str, tolerance) => {
         if(i === lastTrIndex) {
            return completeLastTr(tr)
         } else if(i >= 2) {
-            return completeTr(tr,i);
+            return completeTr(tr,i, isLastMonth);
         } else {
             return tr;
         }
@@ -130,7 +130,7 @@ const completeLastTr = (str) => {
 }
 
 
-const completeTr = (str,i) => {
+const completeTr = (str,i, isLastMonth) => {
     
     if(!str) {
         console.log('Tr '+i + ' nula')
@@ -172,7 +172,22 @@ const completeTr = (str,i) => {
         //totalMinutes += minutesSum;
         console.log('Linha '+ i +  ' tem ' + minutesSum + ' minutos.')
         tdSplit[lastIndex] = minutesToHoursMinutes(minutesSum) + '</' + tdSplit[lastIndex].split('</')[1];
+    } else if(i <= 33) {
+        const date = new Date();
+        if(isLastMonth) {
+            date.setMonth(date.getMonth()-1);
+        }
+        date.setDate(i-2);
+
+        const weekday = date.getDay();
+        if(weekday === 0) {
+            tdSplit[2] = tdSplit[2].replace('&nbsp;','Domingo')
+        } else if(weekday === 6) {
+            tdSplit[2] = tdSplit[2].replace('&nbsp;','Sábado')
+        } 
     }
+
+
     return tdSplit.join(tdSplitString)
 }
 
