@@ -204,7 +204,7 @@ const completeTr = (str,i, isLastMonth, grayWeekends) => {
 const hoursMinutesToMinutes = (str) => {
     if(!str || str.startsWith('&nbsp;')) return ''
     //console.log('hoursMinutesToMinutes: ' +str)
-    const spl = str.split(':');
+    const spl = str.replace(' ','').split(':');
     if(!spl || !(spl.length > 1)) {
         //console.log('Passou pelo teste hoursMinutesToMinutes parcialmente: '+ spl.join(':'))
         return ''
