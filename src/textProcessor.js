@@ -147,23 +147,24 @@ const completeTr = (str,i, isLastMonth) => {
     let minutesSum = 0;
 
     // get 2-3°, 5°-6°, 8-9° collumns (if exists)  <td><p>
-    let isTwoTurns = false;
+    let activeTurns = 0;
     minutesSum += hoursMinutesToMinutes(tdSplit[3]) - hoursMinutesToMinutes(tdSplit[2])
+    if(minutesSum) activeTurns++;
     if(lastIndex > 7) {
         const secondTurnMinutes = hoursMinutesToMinutes(tdSplit[6]) - hoursMinutesToMinutes(tdSplit[5]);
         if(secondTurnMinutes) {
             minutesSum += secondTurnMinutes;
-            isTwoTurns = true;
+            activeTurns++;
         }
         if(lastIndex > 9) {
             const thirdTurnMinutes = hoursMinutesToMinutes(tdSplit[9]) - hoursMinutesToMinutes(tdSplit[8])
             if(thirdTurnMinutes) {
                 minutesSum += thirdTurnMinutes
-                isTwoTurns = true;
+                activeTurns++;
             }
         }
     }
-    if(isTwoTurns) twoTurnsDays++;
+    if(activeTurns > 1) twoTurnsDays++;
     
     // post result to last collumn
     if(minutesSum && minutesSum > 0) {
