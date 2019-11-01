@@ -11,13 +11,14 @@ const App = () =>  {
 
     const completeCodeButtonName = 'Completar Folha Ponto'
     const [lastMonth, setLastMonth] = React.useState(false);
+    const [grayWeekends, setGrayWeekends] = React.useState(true);
     const [html, setHtml] = React.useState('');
     const [readyHtml, setReadyHtml] = React.useState('');
     const [report, setReport] = React.useState('')
     const [tolerance, setTolerance] = React.useState(15);
 
     const processText = () => {
-      const ready = completeHtml(html,tolerance, lastMonth);
+      const ready = completeHtml(html,tolerance, lastMonth, grayWeekends);
       setHtml(ready);
       setReadyHtml(ready);
       setReport(textProcessingReport);
@@ -47,19 +48,22 @@ const App = () =>  {
       </header>
       <div style={{textAlign: 'center'}} id="mainDiv">
         <section>
-          <p>Insira o código HTML da tabela de registro de frequência abaixo <a href='https://docs.google.com/document/d/1x0Sp4mlzEPA3NlKu3XP15NljrMgiLcZA8vqhtlXgHTQ/edit?usp=sharing' target="_blank" rel="noopener">(Instruções detalhadas)</a></p>
+          <p>Insira o código HTML da tabela de registro de frequência abaixo <a href='https://docs.google.com/document/d/1x0Sp4mlzEPA3NlKu3XP15NljrMgiLcZA8vqhtlXgHTQ/edit?usp=sharing' 
+          target="_blank" rel="noopener noreferrer">(Instruções detalhadas)</a></p>
           <textarea rows="12" cols="150" value={html} onChange={textAreaOnChange} className='mainTextArea'/>
         </section>
         <section>
             <div>
               <span>Tolerância em minutos: </span>
               <input type='number' value={tolerance} onChange={(e) => setTolerance(e.target.value)}/>
-              <span style={{marginLeft: '15px'}}>Calcular para mês passado: </span>
-              <input type='checkbox' value={lastMonth} onChange={() => setLastMonth(!lastMonth)}/>
+              <span style={{marginLeft: '15px'}}>Finais de semana em cinza: </span>
+              <input type='checkbox' value={grayWeekends} checked={grayWeekends} onChange={() => setGrayWeekends(!grayWeekends)}/>
+              <span style={{marginLeft: '15px'}}>Calendário do mês passado: </span>
+              <input type='checkbox' value={lastMonth} checked={lastMonth} onChange={() => setLastMonth(!lastMonth)}/>
             </div>
             <button onClick={setDefaultHtml}>{useExampleButtonName}</button>
             <button onClick={processText}>{completeCodeButtonName}</button>
-            <button enabled={!!readyHtml} onClick={copyText}>{copyHtmlButtonName}</button>
+            <button enabled={String(!!readyHtml)} onClick={copyText}>{copyHtmlButtonName}</button>
         </section>
         <section>
           <h4>Relatório</h4>

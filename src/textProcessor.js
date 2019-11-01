@@ -14,9 +14,9 @@ let problems;
 
 const tdSplitString = '<p class="Tabela_Texto_Alinhado_Justificado">'
 const completionComment = '<!-- Essa folha ponto teve seus minutos calculados utilizando  a' +
-' ferramenta disponível em https://working-hours-html-processing.herokuapp.com -->\n'
+' ferramenta disponivel em https://working-hours-html-processing.herokuapp.com -->\n'
 
-export const completeHtml = (str, tolerance, isLastMonth) => {
+export const completeHtml = (str, tolerance, isLastMonth, grayWeekends) => {
 
     textProcessingReport = '';
     problems = '';
@@ -27,6 +27,7 @@ export const completeHtml = (str, tolerance, isLastMonth) => {
     //dailyHours = 0;
     twoTurnsDays = 0;
     minutesInEachDay = []
+    const trSpliter = '<tr'
 
     if(!str) {
         textProcessingReport = 'Não há nenhum texto para ser processado.\n' +
@@ -39,7 +40,7 @@ export const completeHtml = (str, tolerance, isLastMonth) => {
         return ''
     }
     
-    let trSplit = str.split('<tr>')
+    let trSplit = str.split(trSpliter)
     if(trSplit.length < 20) {
         textProcessingReport = 'Não há <Tr> suficientes no HTML';
         return ''
@@ -51,7 +52,7 @@ export const completeHtml = (str, tolerance, isLastMonth) => {
         if(i === lastTrIndex) {
            return completeLastTr(tr)
         } else if(i >= 2) {
-            return completeTr(tr,i, isLastMonth);
+            return completeTr(tr,i, isLastMonth, grayWeekends);
         } else {
             return tr;
         }
@@ -96,7 +97,8 @@ export const completeHtml = (str, tolerance, isLastMonth) => {
     '.\nFez minutos a mais em ' + positiveDay + ' dias, e a menos em ' + negativeDay + ' dias.\n' +
     (problems ? 'Problemas encontrados: ' + problems : '')
 
-    return problems ? '' : completionComment + trSplit.join('<tr>');
+    return problems ? '' :  ( trSplit[0].startsWith('<!--') ? '' : completionComment) + 
+    trSplit.join(trSpliter);
 }
 
 const completeLastTr = (str) => {
@@ -130,7 +132,7 @@ const completeLastTr = (str) => {
 }
 
 
-const completeTr = (str,i, isLastMonth) => {
+const completeTr = (str,i, isLastMonth, grayWeekends) => {
     
     if(!str) {
         console.log('Tr '+i + ' nula')
@@ -181,10 +183,18 @@ const completeTr = (str,i, isLastMonth) => {
         date.setDate(i-2);
 
         const weekday = date.getDay();
+        const weekendColor = '#e3e3e3"'
+
         if(weekday === 0) {
             tdSplit[2] = tdSplit[2].replace('&nbsp;','Domingo')
+            if(tdSplit[0].startsWith('>') && grayWeekends) {
+                tdSplit[0] = ' style="background-color: '+ weekendColor + tdSplit[0]
+            }
         } else if(weekday === 6) {
             tdSplit[2] = tdSplit[2].replace('&nbsp;','Sábado')
+            if(tdSplit[0].startsWith('>') && grayWeekends) {
+                tdSplit[0] = ' style="background-color: ' + weekendColor + tdSplit[0]
+            }
         } 
     }
 
@@ -195,7 +205,7 @@ const completeTr = (str,i, isLastMonth) => {
 const hoursMinutesToMinutes = (str) => {
     if(!str || str.startsWith('&nbsp;')) return ''
     //console.log('hoursMinutesToMinutes: ' +str)
-    const spl = str.split(':');
+    const spl = str.replace(' ','').split(':');
     if(!spl || !(spl.length > 1)) {
         //console.log('Passou pelo teste hoursMinutesToMinutes parcialmente: '+ spl.join(':'))
         return ''
