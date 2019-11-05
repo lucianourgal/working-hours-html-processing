@@ -94,8 +94,10 @@ export const completeHtml = (str, tolerance, isLastMonth, grayWeekends) => {
         '\nDias de dois turnos ou mais: ' + twoTurnsDays +
         '\nSua carga horária é de ' + dailyHours + 'h por dia, ou ' + (dailyHours * 5) + 'h semanais.' +
         '\nContabilizou ' + minutesToHoursMinutes(totalMinutes) + ' de ' +
-        minutesToHoursMinutes(minimumMinutes) + ' esperadas, deixando um saldo de ' + prettyTotalHours + ' no mês.' +
-        '.\nFez minutos a mais em ' + positiveDay + ' dias, e a menos em ' + negativeDay + ' dias.\n' +
+        minutesToHoursMinutes(minimumMinutes) + ' esperadas, deixando um saldo de ' + prettyTotalHours + ' no mês' +
+        '.\nFez minutos a mais em ' + 
+        (positiveDay === 1 ? 'um dia' : positiveDay + ' dias') + ', e a menos em ' + 
+        (negativeDay === 1 ? 'um dia' : negativeDay + ' dias') + '.\n' +
         (problems ? 'Problemas encontrados: ' + problems : '')
 
     return problems ? '' : (trSplit[0].startsWith('<!--') ? '' : completionComment) +
