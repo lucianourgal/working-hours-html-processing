@@ -28,6 +28,7 @@ const App = () =>  {
     }
     const setDefaultHtml = () => {
       setHtml(exampleText);
+      setReadyHtml(exampleText);
       setReport('Código HTML de exemplo inserido na área de texto.\n'+
       'Experimente clicar no botao <<'+ completeCodeButtonName + '>> para ver o resultado.')
     }
