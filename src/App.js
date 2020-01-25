@@ -68,9 +68,9 @@ const App = () =>  {
         </section>
         <section>
           <h3 className='bodyText'>Relatório</h3>
-          <textarea disabled rows="8" cols="100" value={report} onChange={textAreaOnChange} className='reportArea'/>
-          { readyHtml ?  <h4>Resultado atual</h4> : null }
-          <div dangerouslySetInnerHTML={{ __html: readyHtml }}  />
+          <textarea readOnly rows="8" cols="100" value={report} onChange={textAreaOnChange} className='reportArea'/>
+          { readyHtml ?  <h4 className='bodyText'>Resultado atual</h4> : null }
+          <div className='center' dangerouslySetInnerHTML={{ __html: readyHtml }}  />
         </section>
       </div>
     
