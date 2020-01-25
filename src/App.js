@@ -55,11 +55,11 @@ const App = () =>  {
         </section>
         <section>
             <div>
-              <span>Tolerância em minutos: </span>
+              <span className='bodyText'>Tolerância em minutos: </span>
               <input type='number' value={tolerance} onChange={(e) => setTolerance(e.target.value)}/>
-              <span style={{marginLeft: '15px'}}>Finais de semana em cinza: </span>
+              <span style={{marginLeft: '15px'}} className='bodyText'>Finais de semana em cinza: </span>
               <input type='checkbox' value={grayWeekends} checked={grayWeekends} onChange={() => setGrayWeekends(!grayWeekends)}/>
-              <span style={{marginLeft: '15px'}}>Calendário do mês passado: </span>
+              <span style={{marginLeft: '15px'}} className='bodyText'>Calendário do mês passado: </span>
               <input type='checkbox' value={lastMonth} checked={lastMonth} onChange={() => setLastMonth(!lastMonth)}/>
             </div>
             <button onClick={setDefaultHtml}>{useExampleButtonName}</button>
@@ -67,7 +67,7 @@ const App = () =>  {
             <button enabled={String(!!readyHtml)} onClick={copyText}>{copyHtmlButtonName}</button>
         </section>
         <section>
-          <h3>Relatório</h3>
+          <h3 className='bodyText'>Relatório</h3>
           <textarea disabled rows="8" cols="100" value={report} onChange={textAreaOnChange} className='reportArea'/>
           { readyHtml ?  <h4>Resultado atual</h4> : null }
           <div dangerouslySetInnerHTML={{ __html: readyHtml }}  />
