@@ -45,10 +45,10 @@ const App = () =>  {
     
       return <div className="App">
       <header>
-        <h2> Ferramenta para calcular quantidades de horas no HTML da Folha Ponto do SEI IFPR </h2>
+        <h2 id='mainTitle'> Ferramenta para calcular quantidades de horas no HTML da Folha Ponto do SEI IFPR </h2>
       </header>
       <div style={{textAlign: 'center'}} id="mainDiv">
-        <section>
+        <section id="userInput">
           <p>Insira o código HTML da tabela de registro de frequência abaixo <a href='https://docs.google.com/document/d/1x0Sp4mlzEPA3NlKu3XP15NljrMgiLcZA8vqhtlXgHTQ/edit?usp=sharing' 
           target="_blank" rel="noopener noreferrer">(Instruções detalhadas)</a></p>
           <textarea rows="12" cols="150" value={html} onChange={textAreaOnChange} className='mainTextArea'/>
@@ -67,14 +67,14 @@ const App = () =>  {
             <button enabled={String(!!readyHtml)} onClick={copyText}>{copyHtmlButtonName}</button>
         </section>
         <section>
-          <h4>Relatório</h4>
+          <h3>Relatório</h3>
           <textarea disabled rows="8" cols="100" value={report} onChange={textAreaOnChange} className='reportArea'/>
           { readyHtml ?  <h4>Resultado atual</h4> : null }
           <div dangerouslySetInnerHTML={{ __html: readyHtml }}  />
         </section>
       </div>
     
-      <footer><span>Desenvolvido por Luciano Urgal Pando </span></footer>
+      <footer><span id='developedBy'>Desenvolvido por Luciano Urgal Pando </span></footer>
       { /* <span>    Doações de BTC aceitas em bc1qzwlp2yzl783pskg9vrueuwhda7lrfmg3gc6enl</span> */}
     </div>
 

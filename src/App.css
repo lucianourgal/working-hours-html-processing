@@ -1,7 +1,34 @@
 
 #mainDiv {
     width: 100%;
+    padding: 0px;
+    margin: 0px;
 }
+
+#mainTitle:hover {
+    color: #6e0909;
+}
+
+#userInput {
+    margin-bottom: 18px;
+    color: #8bc32f;
+}
+
+body {
+    margin: 0;
+}
+
+span {
+    font-weight: 600;
+}
+
+.App {
+    background-image: url('assets/aron-visuals-BXOXnQ26B7o-unsplash.jpg');
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+
 
 h2 {
     margin-top: 0px;
@@ -13,6 +40,11 @@ header {
     width: 100%;
     height: 65px;
     text-align: center;
+    padding: 0;
+}
+
+header:hover {
+    background-color: #8bc32f;
 }
 
 button {
@@ -36,9 +68,18 @@ footer {
   bottom: 0;
   width: 100%;
   height: 25px;
-  background-color: #ad2b2b;
+  background-color: #6e0909;
+  
   color: white;
   text-align: center;
+}
+
+footer:hover {
+  background-color: #ad2b2b; 
+}
+
+#developedBy:hover {
+    color: #16820e;
 }
 
 .reportArea {
