@@ -201,6 +201,8 @@ const completeTr = (str, i, isLastMonth, grayWeekends) => {
 
         const weekday = date.getDay();
         const weekendColor = '#e3e3e3"'
+        const vacationColor = '#ececec"'
+        const strLowerCase = str.toLowerCase()
 
         if (weekday === 0 && !tdSplit[1].includes(emptyCellString)) {
             tdSplit[2] = tdSplit[2].replace(emptyCellString, 'Domingo')
@@ -212,11 +214,14 @@ const completeTr = (str, i, isLastMonth, grayWeekends) => {
             if (tdSplit[0].startsWith('>') && grayWeekends) {
                 tdSplit[0] = ' style="background-color: ' + weekendColor + tdSplit[0]
             }
+        } else if(strLowerCase.includes('f&eacute;rias') || strLowerCase.includes('ferias')) {
+            if (tdSplit[0].startsWith('>') && grayWeekends) {
+                tdSplit[0] = ' style="background-color: ' + vacationColor + tdSplit[0]
+            }
         }
     }
 
-
-    return tdSplit.join(tdSplitString)
+    return tdSplit.join(tdSplitString);
 }
 
 const hoursMinutesToMinutes = (str) => {
