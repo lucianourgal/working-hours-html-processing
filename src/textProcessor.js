@@ -214,7 +214,7 @@ const completeTr = (str, i, isLastMonth, grayWeekends) => {
             if (tdSplit[0].startsWith('>') && grayWeekends) {
                 tdSplit[0] = ' style="background-color: ' + weekendColor + tdSplit[0]
             }
-        } else if(strLowerCase.includes('f&eacute;rias') || strLowerCase.includes('ferias')) {
+        } else if(isHoliday(strLowerCase)) {
             if (tdSplit[0].startsWith('>') && grayWeekends) {
                 tdSplit[0] = ' style="background-color: ' + vacationColor + tdSplit[0]
             }
@@ -222,6 +222,11 @@ const completeTr = (str, i, isLastMonth, grayWeekends) => {
     }
 
     return tdSplit.join(tdSplitString);
+}
+
+const isHoliday = (str) => {
+    return (str.includes('f&eacute;rias') || str.includes('ferias') || 
+    str.includes('recesso') ||  str.includes('feriado') );
 }
 
 const hoursMinutesToMinutes = (str) => {
