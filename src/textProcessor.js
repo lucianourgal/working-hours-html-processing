@@ -59,10 +59,10 @@ export const completeHtml = (str, tolerance, isLastMonth, grayWeekends) => {
         }
     })
 
-    if (activeDays < 1) {
+    /*if (activeDays < 1) {
         textProcessingReport = 'Não há registros de dias ativos. \n' + textProcessingReport
         return ''
-    }
+    }*/
 
     const dailyMinutes = dailyHours * 60
 
