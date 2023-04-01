@@ -47,7 +47,7 @@ const App = () => {
     <header>
       <div className='headerBlock' style={{ textAlign: 'right' }}>
         <a href='https://reitoria.ifpr.edu.br/' target="_blank" rel="noopener noreferrer">
-          <img src='https://eventocientificoifpr.vpeventos.com/uploads/uploads_11484/site/logo_1_280399.png' alt='IFPR logo' />
+          <img src='ifpr.JPG' alt='IFPR logo' />
         </a>
       </div>
       <div className='headerBlock'>
