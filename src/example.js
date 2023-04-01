@@ -235,7 +235,7 @@ export const exampleText = `<table border="1" cellpadding="1" cellspacing="1" st
 			<p class="Tabela_Texto_Alinhado_Justificado">&nbsp;</p>
 			</td>
 			<td>
-			<p class="Tabela_Texto_Alinhado_Justificado">&nbsp;</p>
+			<p class="Tabela_Texto_Alinhado_Justificado">Feriado nacional</p>
 			</td>
 			<td>
 			<p class="Tabela_Texto_Alinhado_Justificado">&nbsp;</p>
@@ -270,7 +270,7 @@ export const exampleText = `<table border="1" cellpadding="1" cellspacing="1" st
 			<p class="Tabela_Texto_Alinhado_Justificado">&nbsp;</p>
 			</td>
 			<td>
-			<p class="Tabela_Texto_Alinhado_Justificado">&nbsp;</p>
+			<p class="Tabela_Texto_Alinhado_Justificado">Recesso administrativo</p>
 			</td>
 			<td>
 			<p class="Tabela_Texto_Alinhado_Justificado">&nbsp;</p>
