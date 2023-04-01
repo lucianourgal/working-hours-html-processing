@@ -47,7 +47,7 @@ const App = () => {
     <header>
       <div className='headerBlock' style={{ textAlign: 'right' }}>
         <a href='https://reitoria.ifpr.edu.br/' target="_blank" rel="noopener noreferrer">
-          <img src='ifpr.JPG' alt='IFPR logo' />
+          <img src='ifpr.JPG' alt='IFPR logo' id='logo-ifpr' />
         </a>
       </div>
       <div className='headerBlock'>
@@ -82,11 +82,11 @@ const App = () => {
         <h3 className='bodyText'>Relatório</h3>
         <textarea readOnly rows="8" cols="100" value={report} onChange={textAreaOnChange} className='reportArea' />
         {readyHtml ? <h4 className='bodyText'>Resultado atual</h4> : null}
-        <div className='center' dangerouslySetInnerHTML={{ __html: readyHtml }} />
+        <div className='center' dangerouslySetInnerHTML={{ __html: readyHtml }} />F
       </section>
     </div>
 
-    <footer><span id='developedBy'>Desenvolvido por Luciano Urgal Pando </span></footer>
+    <footer><a href="https://github.com/lucianourgal/working-hours-html-processing" target="_blank" rel="noopener noreferrer"><span id='developedBy'>Desenvolvido por Luciano Urgal Pando </span></a></footer>
     { /* <span>    Doações de BTC aceitas em bc1qzwlp2yzl783pskg9vrueuwhda7lrfmg3gc6enl</span> */}
   </div>
 

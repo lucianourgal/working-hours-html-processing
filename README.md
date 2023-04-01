@@ -8,7 +8,7 @@
 - Coded using React.js and VSCode
 
 # Online at
-https://working-hours-html-processing.herokuapp.com/
+https://ajuda-folhaponto-sei.netlify.app/
 
 # Use instructions available at
 https://docs.google.com/document/d/1x0Sp4mlzEPA3NlKu3XP15NljrMgiLcZA8vqhtlXgHTQ/edit?usp=sharing

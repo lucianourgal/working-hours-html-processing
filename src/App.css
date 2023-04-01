@@ -5,6 +5,10 @@ img {
     margin-top: 10px;
 }
 
+#logo-ifpr {
+    width: 130px;
+}
+
 .headerBlock {
     width: 33%;
     display: inline-block;
@@ -111,9 +115,9 @@ footer {
   text-align: center;
 }
 
-footer:hover {
-    background-color: #6e0909;
-  /*background-color: #ad2b2b; */
+#developedBy {
+    color: #df8f01;
+    text-decoration: none;
 }
 
 #developedBy:hover {
