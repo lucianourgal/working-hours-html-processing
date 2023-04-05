@@ -15,7 +15,7 @@ let problems;
 const emptyCellString = '&nbsp;'
 const tdSplitString = '<p class="Tabela_Texto_Alinhado_Justificado">'
 const completionComment = '<!-- Essa folha ponto teve seus minutos calculados utilizando  a' +
-    ' ferramenta disponivel em https://working-hours-html-processing.herokuapp.com -->\n'
+    ' ferramenta disponivel em https://ajuda-folhaponto-sei.netlify.app/ -->\n'
 
 export const completeHtml = (str, tolerance, isLastMonth, grayWeekends) => {
 
