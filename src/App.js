@@ -3,6 +3,7 @@ import { completeHtml, textProcessingReport } from './textProcessor';
 import { exampleText } from './example'
 import copy from 'copy-to-clipboard';
 import './App.css'
+import * as amplitude from '@amplitude/analytics-browser';
 
 export const copyHtmlButtonName = 'Copiar HTML completado';
 export const useExampleButtonName = 'Inserir HTML exemplo'
@@ -22,11 +23,13 @@ const App = () => {
     setHtml(ready);
     setReadyHtml(ready);
     setReport(textProcessingReport);
+    amplitude.track('Text processing');
   }
   const textAreaOnChange = (event) => {
     setHtml(event.target.value);
   }
   const setDefaultHtml = () => {
+    amplitude.track('Default text set');
     setHtml(exampleText);
     setReadyHtml(exampleText);
     setReport('Código HTML de exemplo inserido na área de texto.\n' +
@@ -34,6 +37,7 @@ const App = () => {
   }
   const copyText = () => {
     if (readyHtml) {
+        amplitude.track('Copied text');
       copy(readyHtml)
       setReport('Código HTML copiado para a área de transferência!\n' +
         'Agora basta colar o código da tabela na área correspondente do SEI.')
